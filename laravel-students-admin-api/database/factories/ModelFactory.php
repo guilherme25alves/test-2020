@@ -17,12 +17,25 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Students::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'birthdate' => $faker->dateTimeBetween('1970-01-01', '2006-12-31')->format('d/m/Y'),
+    ];
+});
+
+$factory->define(Courses::class, function (Faker $faker) {
+    return [
+        'title' => $faker->sentence(20, true),
+        'description' => $faker->sentence(),
+    ];
+});
+
+$factory->define(Enrollments::class, function (Faker $faker) {
+    return [
+        'student_id' => App\Students::all()->random()->student_id,
+        'course_id' => App\Courses::all()->random()->course_id,
+        'enrollment_date' => now(),
     ];
 });

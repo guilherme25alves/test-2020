@@ -10,7 +10,9 @@ class StudentsTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        //
+    {        
+        App\Students::truncate();
+
+        factory(App\Students::class, 50)->create();
     }
 }

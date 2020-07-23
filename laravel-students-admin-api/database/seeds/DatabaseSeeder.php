@@ -10,7 +10,15 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        // $this->call(UserSeeder::class);
+    {    
+        Model::unguard();
+        DB::statement('set foreign_key_checks = 0');
+
+        $this->call(StudentsTableSeeder::class);
+        $this->call(CoursesTableSeeder::class);
+        $this->call(EnrollmentsTableSeeder::class);
+
+        DB::statement('set foreign_key_checks = 1');
+        Model::reguard();
     }
 }
