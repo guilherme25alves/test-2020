@@ -24,8 +24,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(StudentsTableSeeder::class);
 
-        for ($i=0; $i < count($listCourses); $i++) { 
-            //$this->call(CoursesTableSeeder::class);
+        for ($i=0; $i < count($listCourses); $i++) {             
             App\Courses::create([
                 'title' => $listCourses[$i],
                 'description' => $faker->sentence()
