@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Students;
+use App\Http\Resources\StudentsResource;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,29 +17,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/students', 'StudentsController@get');
+Route::get('/students/{id}', 'StudentsController@getById');
+Route::get('/students/name/{name}', 'StudentsController@getByName');
+Route::get('/students/email/{email}', 'StudentsController@getByEmail');
+Route::post('/students', 'StudentsController@store');
+Route::put('/students/{id}', 'StudentsController@update');
+Route::delete('/students/{id}', 'StudentsController@delete');
 
-/*
-Route::get('/students', '');
-Route::get('/students/{student_id}', '');
-Route::get('/students/{field}/{value}', '');
-Route::post('/students', '');
-Route::put('/students', '');
-Route::delete('/students', '');
+Route::get('/courses', 'CoursesController@get');
+Route::get('/courses/{id}', 'CoursesController@getById');
+Route::get('/courses/title/{title}', 'CoursesController@getByTitle');
+Route::post('/courses', 'CoursesController@store');
+Route::put('/courses/{id}', 'CoursesController@update');
+Route::delete('/courses/{id}', 'CoursesController@delete');
 
-Route::get('/courses', '');
-Route::get('/courses/{course_id}', '');
-Route::get('/courses/{field}/{value}', '');
-Route::post('/courses', '');
-Route::put('/courses', '');
-Route::delete('/courses', '');
+Route::get('/enrollments', 'EnrollmentsController@get');
+Route::get('/enrollments/{id}', 'EnrollmentsController@getById');
+Route::post('/enrollments', 'EnrollmentsController@store');
+Route::put('/enrollments/{id}', 'EnrollmentsController@update');
+Route::delete('/enrollments/{id}', 'EnrollmentsController@delete');
 
-Route::get('/enrollments', '');
-Route::get('/enrollments/{enrollment_id}', '');
-Route::get('/enrollments/{field}/{value}', '');
-Route::post('/enrollments', '');
-Route::put('/enrollments', '');
-Route::delete('/enrollments', '');
-*/
