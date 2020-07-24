@@ -17,22 +17,22 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Students::class, function (Faker $faker) {
+$factory->define(App\Students::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'birthdate' => $faker->dateTimeBetween('1970-01-01', '2006-12-31')->format('d/m/Y'),
+        'birthdate' => $faker->dateTimeBetween('1970-01-01', '2006-12-31')->format('Y/m/d'),
     ];
 });
 
-$factory->define(Courses::class, function (Faker $faker) {
+$factory->define(App\Courses::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence(20, true),
         'description' => $faker->sentence(),
     ];
 });
 
-$factory->define(Enrollments::class, function (Faker $faker) {
+$factory->define(App\Enrollments::class, function (Faker $faker) {
     return [
         'student_id' => App\Students::all()->random()->student_id,
         'course_id' => App\Courses::all()->random()->course_id,

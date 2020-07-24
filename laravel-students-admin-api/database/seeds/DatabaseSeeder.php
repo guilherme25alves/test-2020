@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Helpers\FileToArrayHelper;
+use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,9 +15,23 @@ class DatabaseSeeder extends Seeder
     {    
         Model::unguard();
         DB::statement('set foreign_key_checks = 0');
+        
+        $faker = Faker\Factory::create();
+
+        $fileHelper = new FileToArrayHelper;
+
+        $listCourses = $fileHelper->getCoursesListFromTextFile();
 
         $this->call(StudentsTableSeeder::class);
-        $this->call(CoursesTableSeeder::class);
+
+        for ($i=0; $i < count($listCourses); $i++) { 
+            //$this->call(CoursesTableSeeder::class);
+            App\Courses::create([
+                'title' => $listCourses[$i],
+                'description' => $faker->sentence()
+            ]);
+        }
+                    
         $this->call(EnrollmentsTableSeeder::class);
 
         DB::statement('set foreign_key_checks = 1');

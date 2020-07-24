@@ -1,0 +1,11 @@
+Biologia
+Química
+Física
+Matemática
+Lógica de Programação
+Português
+Geografia
+História
+Inglês
+Espanhol
+Informática
