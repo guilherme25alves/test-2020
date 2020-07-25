@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(StudentsTableSeeder::class);
 
+        App\Courses::truncate();
+
         for ($i=0; $i < count($listCourses); $i++) {             
             App\Courses::create([
                 'title' => $listCourses[$i],

@@ -10,12 +10,12 @@ class FileToArrayHelper
 
         $coursesListFile = fopen(storage_path("coursesList.txt"), "r");
         
-        while(!feof($coursesListFile)) {
-            array_push($coursesListArray, fgets($coursesListFile));
+        while(!feof($coursesListFile)) {            
+            array_push($coursesListArray, trim(strval(fgets($coursesListFile))) );
         }
         
         fclose($coursesListFile);
-    
+        
         return $coursesListArray;
     }
 }
