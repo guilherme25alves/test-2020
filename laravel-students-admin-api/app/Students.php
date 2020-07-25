@@ -15,6 +15,6 @@ class Students extends Model
     ];
 
     public function enrollments(){
-        return $this->hasMany('App\Enrollments');
+        return $this->hasMany('App\Enrollments', 'student_id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\CoursesResource;
+use App\Http\Resources\EnrollmentsResource;
 use App\Courses;
 use App\Helpers\VarsMessageHelper;
 
@@ -83,6 +84,31 @@ class CoursesController extends Controller
         }
 
         return response(['data' => new CoursesResource($course), 'message' => $message], $httpCode);
+    }
+
+    public function getEnrollmentsByCourse($courseId)
+    {
+        $message = VarsMessageHelper::$badRequestMessage;
+        $httpCode = 400;
+
+        if(is_numeric($courseId)){
+            $courses = Courses::find($courseId);
+            
+            if(!is_null($courses)){
+                $enrollmentsList = $courses->enrollments()->get();
+                
+                if(count($enrollmentsList) > 0){
+                    $message = VarsMessageHelper::$okMessage;
+                    $httpCode = 200;      
+                    return response(['data' => new EnrollmentsResource($enrollmentsList), 'message' => $message], $httpCode);          
+                }
+            }                        
+                        
+            $message = VarsMessageHelper::$notFoundMessage;
+            $httpCode = 404;            
+        }   
+        
+        return response(['message' => $message], $httpCode);
     }
 
     public function store(Request $request)
