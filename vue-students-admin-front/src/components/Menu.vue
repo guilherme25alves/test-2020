@@ -7,11 +7,24 @@
             <span class="title">Prof.Beeliano</span>            
         </div>
         <div>
-            <ul>                
-                <li><router-link class="menu-item" to="/"><i class="fas fa-home"></i> Home</router-link></li>
-                <li><router-link class="menu-item" to="/students"><i class="fas fa-graduation-cap"></i> Alunos</router-link></li>
-                <li><router-link class="menu-item" to="/courses"><i class="fas fa-book"></i> Cursos</router-link></li>
-                <li><router-link class="menu-item" to="/enrollments"><i class="fas fa-file"></i> Matrículas</router-link></li>        
+            <ul>
+                <li><button id="showMenu" v-on:click="isActive = !isActive;" class="btn-menu-item show-xs show-sm hide-md hide-lg hide-xl"><i class="fas fa-list"></i></button></li>
+                <li><router-link 
+                    v-bind:class="isActive ? 'show-xs show-sm' : 'hide-xs hide-sm'"                 
+                    class="menu-item" 
+                    to="/"><i class="fas fa-home"></i> Home</router-link></li>
+                <li><router-link                      
+                    v-bind:class="isActive ? 'show-xs show-sm' : 'hide-xs hide-sm'"
+                    class="menu-item" 
+                    to="/students"><i class="fas fa-graduation-cap"></i> Alunos</router-link></li>
+                <li><router-link  
+                    v-bind:class="isActive ? 'show-xs show-sm' : 'hide-xs hide-sm'"
+                    class="menu-item" 
+                    to="/courses"><i class="fas fa-book"></i> Cursos</router-link></li>
+                <li><router-link  
+                    v-bind:class="isActive ? 'show-xs show-sm' : 'hide-xs hide-sm'"
+                    class="menu-item" 
+                    to="/enrollments"><i class="fas fa-file"></i> Matrículas</router-link></li>                                                        
             </ul>
         </div>
     </div>
@@ -21,7 +34,12 @@
 
 <script>
 export default {
-  name: 'App',  
+  name: 'App',
+  data: function(){
+      return {
+          isActive: false
+      }      
+  } ,   
 }
 </script>
 
@@ -55,6 +73,17 @@ export default {
     #menu ul li .menu-item:hover {
         background-color:#176780;
         color: #ffffff;        
+    }
+
+    .btn-menu-item {
+        padding: 2px 25px;
+        background-color: #FFF;
+        font-size: 1.2rem;
+        font-family: fantasy;
+        letter-spacing: 1.3px;
+        color: #649cb1;
+        border: 2px solid #649cb1;
+        cursor: pointer;
     }
 
     .icons{
