@@ -7,18 +7,17 @@
 
         <div class="container">
             <div class="columns">
-                <div class="column col-4">
+                <div class="column col-xs-12 col-sm-12 col-4">
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title h5">Alunos</div>
-                            <div class="card-subtitle text-gray">Hardware and software</div>
+                            <div class="card-title h5">Alunos</div>                            
                         </div>
                         <div class="card-image">
-                            <img class="img-responsive" src="@/assets/logo.png" alt="OS X Yosemite">
+                            <img class="img-responsive" src="@/assets/students.jpg" alt="Animate Student">
                         </div>
                         <div class="card-body">
-                            To make a contribution to the world by making tools for the mind that advance humankind.
+                            Administre as informações de todos os seus alunos de forma prática e coesa
                         </div>
                         <div class="card-footer">
                             <div class="btn-group btn-group-block">
@@ -30,18 +29,17 @@
 
                 </div>
                 
-                <div class="column col-4">
+                <div class="column col-xs-12 col-sm-12 col-4">
 
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title h5">Cursos</div>
-                            <div class="card-subtitle text-gray">Hardware and software</div>
+                            <div class="card-title h5">Cursos</div>                            
                         </div>
                         <div class="card-image">
-                            <img class="img-responsive" src="@/assets/logo.png" alt="OS X Yosemite">
+                            <img class="img-responsive" src="@/assets/courses.png" alt="Digital Course">
                         </div>
                         <div class="card-body">
-                            To make a contribution to the world by making tools for the mind that advance humankind.
+                            Tenha um controle de todos os cursos disponíveis para seus alunos.
                         </div>
                         <div class="card-footer">
                             <div class="btn-group btn-group-block">
@@ -54,18 +52,17 @@
 
                 </div>
                 
-                <div class="column col-4">
+                <div class="column col-xs-12 col-sm-12 col-4">
 
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title h5">Matrículas</div>
-                            <div class="card-subtitle text-gray">Hardware and software</div>
+                            <div class="card-title h5">Matrículas</div>                            
                         </div>
                         <div class="card-image">
-                            <img class="img-responsive" src="@/assets/logo.png" alt="OS X Yosemite">
+                            <img class="img-responsive" src="@/assets/enrollments.jpg" alt="Enrollment Documents">
                         </div>
                         <div class="card-body">
-                            To make a contribution to the world by making tools for the mind that advance humankind.
+                            Acompanhe as matrículas ativas e quais cursos estão tendo maiores engajamento dos alunos
                         </div>
                         <div class="card-footer">
                             <div class="btn-group btn-group-block">
@@ -85,7 +82,7 @@
 
 <script>
 export default {
-    name:'App'
+    name:'App',
 }
 
 </script>
@@ -102,6 +99,16 @@ export default {
 
     div .container {
         font-family: 'Poppins';
+    }
+
+    .img-responsive{
+        width:100%;
+        height: 320px;
+    }
+
+    .card{
+        box-shadow: 0 0.25rem 1rem rgba(48, 55, 66, 0.15);
+        border:0;
     }
 
 </style>
