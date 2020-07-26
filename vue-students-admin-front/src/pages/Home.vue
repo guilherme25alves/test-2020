@@ -21,8 +21,8 @@
                         </div>
                         <div class="card-footer">
                             <div class="btn-group btn-group-block">
-                                <router-link to="/students" class="btn">Listar</router-link>
-                                <router-link to="/students/store" class="btn">Cadastrar</router-link>
+                                <router-link to="/students" class="btn btn-p-hover">Listar</router-link>
+                                <router-link to="/students/store" class="btn btn-p-hover">Cadastrar</router-link>
                             </div>
                         </div>
                     </div>
@@ -43,8 +43,8 @@
                         </div>
                         <div class="card-footer">
                             <div class="btn-group btn-group-block">
-                                <router-link to="/courses" class="btn">Listar</router-link>
-                                <router-link to="/courses/store" class="btn">Cadastrar</router-link>
+                                <router-link to="/courses" class="btn btn-p-hover">Listar</router-link>
+                                <router-link to="/courses/store" class="btn btn-p-hover">Cadastrar</router-link>
                             </div>
                         </div>
                     </div>
@@ -66,8 +66,8 @@
                         </div>
                         <div class="card-footer">
                             <div class="btn-group btn-group-block">
-                                <router-link to="/enrollments" class="btn">Listar</router-link>
-                                <router-link to="/enrollments/store" class="btn">Cadastrar</router-link>
+                                <router-link to="/enrollments" class="btn btn-p-hover">Listar</router-link>
+                                <router-link to="/enrollments/store" class="btn btn-p-hover">Cadastrar</router-link>
                             </div>
                         </div>
                     </div>
@@ -109,6 +109,11 @@ export default {
     .card{
         box-shadow: 0 0.25rem 1rem rgba(48, 55, 66, 0.15);
         border:0;
+    }
+
+    .btn-p-hover:hover{
+        color: #FFF;
+        background: #807fe2;        
     }
 
 </style>

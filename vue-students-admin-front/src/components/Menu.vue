@@ -8,7 +8,10 @@
         </div>
         <div>
             <ul>
-                <li><button id="showMenu" v-on:click="isActive = !isActive;" class="btn-menu-item show-xs show-sm hide-md hide-lg hide-xl"><i class="fas fa-list"></i></button></li>
+                <li><button 
+                    id="showMenu" 
+                    v-on:click="isActive = !isActive;" 
+                    class="btn-menu-item show-xs show-sm hide-md hide-lg hide-xl"><i class="fas fa-list"></i> Menu</button></li>
                 <li><router-link 
                     v-bind:class="isActive ? 'show-xs show-sm' : 'hide-xs hide-sm'"                 
                     class="menu-item" 
@@ -55,7 +58,6 @@ export default {
 
     #menu ul li {
         display: inline;
-        color:blue;
     }
 
     #menu ul li .menu-item{
@@ -84,6 +86,12 @@ export default {
         color: #649cb1;
         border: 2px solid #649cb1;
         cursor: pointer;
+        margin: 0 auto;
+    }
+
+    .btn-menu-item:hover{
+        background-color:#176780;
+        color: #ffffff;
     }
 
     .icons{
