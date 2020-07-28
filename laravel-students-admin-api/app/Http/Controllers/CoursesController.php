@@ -58,7 +58,7 @@ class CoursesController extends Controller
             $message = VarsMessageHelper::$badRequestMessage;
             $httpCode = 400;
 
-            return response(['message' => $message ], $httpCode);   
+            return response([ 'data'=> null, 'message' => $message ], $httpCode);   
         }
     }
 
@@ -108,7 +108,7 @@ class CoursesController extends Controller
             $httpCode = 404;            
         }   
         
-        return response(['message' => $message], $httpCode);
+        return response(['data'=> null,'message' => $message], $httpCode);
     }
 
     public function store(Request $request)

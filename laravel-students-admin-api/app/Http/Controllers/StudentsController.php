@@ -72,7 +72,7 @@ class StudentsController extends Controller
         if(is_null($name)){
             $message = VarsMessageHelper::$nullParameterMessage;
             $httpCode = 400;
-            return response(['message' => $message], $httpCode);
+            return response(['data'=> null, 'message' => $message], $httpCode);
         }
 
         $student = Students::where('name', 'like','%'.$name.'%')->get();
@@ -96,7 +96,7 @@ class StudentsController extends Controller
         if(is_null($email)){
             $message = VarsMessageHelper::$nullParameterMessage;
             $httpCode = 400;
-            return response(['message' => $message], $httpCode);
+            return response(['data'=> null,'message' => $message], $httpCode);
         }
 
         $student = Students::where('email', $email)->first();
@@ -134,7 +134,7 @@ class StudentsController extends Controller
             $httpCode = 404;            
         }   
         
-        return response(['message' => $message], $httpCode);
+        return response(['data'=> null,'message' => $message], $httpCode);
     }
 
     public function store(Request $request)

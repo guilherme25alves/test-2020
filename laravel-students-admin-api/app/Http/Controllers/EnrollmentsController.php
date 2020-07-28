@@ -60,7 +60,7 @@ class EnrollmentsController extends Controller
             $message = VarsMessageHelper::$badRequestMessage;
             $httpCode = 400;
 
-            return response(['message' => $message ], $httpCode);   
+            return response(['data'=> null,'message' => $message ], $httpCode);   
         }
     }
 
