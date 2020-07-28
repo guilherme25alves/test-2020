@@ -3,6 +3,9 @@ import Router from 'vue-router'
 import Home from '@/pages/Home'
 
 import Courses from  '@/pages/courses/Courses'
+import CoursesStore from '@/pages/courses/Store'
+import CoursesUpdate from '@/pages/courses/Update'
+import CoursesDetails from '@/pages/courses/Details'
 
 import Students from '@/pages/students/Students'  
 import StudentsStore from '@/pages/students/Store'
@@ -26,6 +29,23 @@ const routes = [
         path: '/courses',
         component: Courses,
         meta: {}
+    },
+    {
+        name: 'store-courses',
+        path: '/courses/store',
+        component: CoursesStore,
+        meta: {}
+    },
+    {
+        name: 'update-courses',
+        path: '/courses/update/:course_id',
+        component: CoursesUpdate,
+        meta: {}
+    },
+    {
+        name:'details-courses',
+        path: '/courses/details/:course_id',
+        component: CoursesDetails
     },
     {
         name: 'students',

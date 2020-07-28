@@ -31,5 +31,13 @@ export default{
 
     enrollmentsByStudent:(studentId) => {
         return http.get('students/enrollments/'+ studentId)
+    },
+
+    findByName:(name) => {
+        return http.get('students/name/' + name)
+    },
+
+    findByEmail:(email) => {
+        return http.get('students/email/' + email)
     }
 }
