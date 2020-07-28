@@ -5,7 +5,6 @@
   </div>
 </template>
 
-<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' />
 
 <script>
 import Menu from './components/Menu.vue'

@@ -1,33 +1,45 @@
 <template>
     <div>
         
-        <div class="container">            
-            <div class="columns">
-                <div class="column col-10 col-mx-auto col-xs-12 col-sm-12 col-md-12">
-                    <table class="table">
-                        <thead>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>E-mail</th>
-                            <th>Data de nascimento</th>
-                            <th>Ações</th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="student of students" :key="student.student_id" > 
-                                <td>{{ student.student_id }}</td>
-                                <td>{{ student.name }}</td>
-                                <td>{{ student.email }}</td>
-                                <td>{{ student.birthdate }}</td>
-                                <td>
-                                    <button class="btn-detail btn">Detalhes</button>
-                                    <button class="btn-edit btn">Editar</button>
-                                    <button class="btn-delete btn">Deletar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="container"> 
+            <div class="hero-sm">
+                <div class="hero-bod">
+                    <h1 class="title-h">{{ title }}</h1>
                 </div>
             </div>
+
+            <div class="columns">
+                <div class="column col-10 col-mx-auto col-xs-12 col-sm-12 col-md-12">
+                        <table class="table">
+                            <thead>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Data de nascimento</th>
+                                <th>Ações</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="student of students" :key="student.student_id" > 
+                                    <td>{{ student.student_id }}</td>
+                                    <td>{{ student.name }}</td>
+                                    <td>{{ student.email }}</td>
+                                    <td>{{ student.birthdate }}</td>
+                                    <td>
+                                        <button v-on:click="toDetails(student.student_id)" class="btn-detail btn">Detalhes</button>
+                                        <button v-on:click="toEdit(student.student_id)" class="btn-edit btn">Editar</button>
+                                        <button v-on:click="deleteStudent(student.student_id)" class="btn-delete btn">Deletar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <section>
+                            <router-link to="/students/store" class="btn btn-edit align-btn">Novo Aluno</router-link>
+                        </section>
+
+                </div>                
+            </div>            
+            
         </div>
     </div>
 </template>
@@ -40,13 +52,60 @@ export default {
     
     data(){
         return {
-            students: []
+            students: [],
+            title: "Alunos"
         }
     },
     mounted(){
-        Students.listStudents().then(response => {
-            this.students = response.data.data
-        })
+        this.list()
+    },
+
+    methods:{
+        
+        list(){
+            Students.listStudents().then(response => {
+                this.students = response.data.data
+            })
+        },
+
+        toEdit(student_id){
+            this.$router.push('/students/update/' + student_id)
+        },
+
+        toDetails(student_id){
+            this.$router.push('/students/details/' + student_id)
+        },
+
+        deleteStudent(student_id){
+            this.$swal({
+                title: "Remover Estudante?",
+                text: "Deletar estudante implica em perder seus dados e remover suas matrículas!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((confirmDelete) => {
+                if (confirmDelete) {
+                    Students.remove(student_id)
+                        .then(() => {
+                            this.$swal("Feito! Estudante removido!", {
+                                icon: "success",
+                            });
+                            this.list()                            
+                        })
+                        .catch(() => {
+                            this.$swal("Erro ao remover Estudante! Tente novamente por gentileza!", {
+                                icon: "error",
+                            });                            
+                        })                    
+                } else {
+                    this.$swal("Ação de remover cancelada",{
+                        icon: "info",
+                    });
+                }
+            });
+                        
+        }
     }
 
 }
@@ -90,6 +149,11 @@ export default {
         border: .05rem solid #fff !important;
         opacity: 1 !important;
     }
+    .align-btn{
+        width: 100%;
+        max-width: 120px;
+        float: left;
+    }
 
     table{
         font-family: 'Poppins';
@@ -125,6 +189,10 @@ export default {
         text-transform: uppercase;
         font-size: 15px;        
     }
+    .title-h {
+        color: #41b883;
+        font-family: fantasy;
+    }
 
     @media(max-width: 880px){
         .column{
@@ -132,6 +200,11 @@ export default {
         }
         table{
             margin-bottom: 0px !important;
+        }
+        .align-btn{
+            margin: 20px auto !important;
+            width: 250px;
+            float: none;
         }   
     }
 </style>
