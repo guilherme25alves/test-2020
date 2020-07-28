@@ -13,6 +13,8 @@ import StudentsUpdate from '@/pages/students/Update'
 import StudentsDetails from '@/pages/students/Details'
 
 import Enrollments from '@/pages/enrollments/Enrollments'
+import EnrollmentsStore from '@/pages/enrollments/Store'
+import EnrollmentsUpdate from '@/pages/enrollments/Update'
 
 
 Vue.use(Router);
@@ -74,6 +76,18 @@ const routes = [
         name: 'enrollments',
         path: '/enrollments',
         component: Enrollments,
+        meta: {}
+    },
+    {
+        name: 'store-enrollments',
+        path: '/enrollments/store',
+        component: EnrollmentsStore,
+        meta: {}
+    },
+    {
+        name: 'update-enrollments',
+        path: '/enrollments/update/:enrollment_id',
+        component: EnrollmentsUpdate,
         meta: {}
     }
 ]
