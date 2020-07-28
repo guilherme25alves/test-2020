@@ -46,7 +46,7 @@
                                     <th>Data Matrícula</th>                                
                                 </thead>
                                 <tbody>
-                                    <tr v-for="enrollment of enrollments" :key="enrollment.student_id" > 
+                                    <tr v-for="enrollment of enrollments" :key="enrollment.enrollment_id" > 
                                         <td>{{ enrollment.enrollment_id }}</td>
                                         <td>{{ enrollment.student_id }}</td>
                                         <td>{{ enrollment.course_id }}</td>
@@ -68,6 +68,7 @@
 
 <script>
 
+import Courses from '../../services/courses'
 import Students from '../../services/students'
 
 export default {
@@ -81,6 +82,7 @@ export default {
                 birthdate: '',
             },            
             enrollments: [],
+            courses: [],
             title: "Detalhes Aluno : ",
             isEmptyEnrollments: false            
         }
@@ -88,7 +90,8 @@ export default {
 
     mounted(){
         var student_id = this.$route.params.student_id
-        this.getByIdentifier(student_id)        
+        this.getByIdentifier(student_id)      
+        this.getListCourses()  
         this.getEnrollments(student_id)        
     },
 
@@ -115,8 +118,12 @@ export default {
         getEnrollments(studentId){
             Students.enrollmentsByStudent(studentId)
                 .then( response =>{
-                    console.log(response.data)
-                    this.enrollments = response.data.data                    
+                    this.enrollments = response.data.data    
+                    this.enrollments.forEach(element => {
+                        element.student_id = this.student.name
+                        console.log(element.course_id)
+                        element.course_id = this.findObjectByKey(this.courses , "course_id" , element.course_id).title
+                    });
                 })
                 .catch(() =>{
                     this.isEmptyEnrollments = true
@@ -127,6 +134,22 @@ export default {
             var className = (element !== '') ? 'has-error' : '';
             return className;
         },
+
+        getListCourses(){
+            Courses.listCourses().then(response => {
+                this.courses = response.data.data
+            })
+        },
+
+        findObjectByKey(array, key, value) {
+            for (var i = 0; i < array.length; i++) {
+                var field = (key === 'student_id') ? array[i].student_id : array[i].course_id
+                if (field === value) {                   
+                   return array[i];
+                }
+            }
+            return null;
+        }
     }
 
 }
