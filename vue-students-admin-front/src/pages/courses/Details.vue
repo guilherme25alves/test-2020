@@ -61,6 +61,7 @@
 <script>
 
 import Courses from '../../services/courses'
+import Students from '../../services/students'
 
 export default {
     
@@ -72,6 +73,7 @@ export default {
                 description: '',
             },            
             enrollments: [],
+            students: [],
             title: "Detalhes Curso : ",
             isEmptyEnrollments: false            
         }
@@ -79,7 +81,8 @@ export default {
 
     mounted(){
         var course_id = this.$route.params.course_id
-        this.getByIdentifier(course_id)        
+        this.getByIdentifier(course_id)  
+        this.getListStudents()        
         this.getEnrollments(course_id)        
     },
 
@@ -106,7 +109,12 @@ export default {
             Courses.enrollmentsByCourse(courseId)
                 .then( response =>{
                     console.log(response.data)
-                    this.enrollments = response.data.data                    
+                    this.enrollments = response.data.data   
+                    this.enrollments.forEach(element => {
+                        //console.log(element.course_id)
+                        element.student_id = this.findObjectByKey(this.students , "student_id" , element.student_id).name
+                        element.course_id = this.course.title
+                    });                 
                 })
                 .catch(() =>{
                     this.isEmptyEnrollments = true
@@ -117,6 +125,22 @@ export default {
             var className = (element !== '') ? 'has-error' : '';
             return className;
         },
+
+        getListStudents(){
+            Students.listStudents().then(response => {
+                this.students = response.data.data
+            })
+        },
+
+        findObjectByKey(array, key, value) {
+            for (var i = 0; i < array.length; i++) {
+                var field = (key === 'student_id') ? array[i].student_id : array[i].course_id
+                if (field === value) {                   
+                   return array[i];
+                }
+            }
+            return null;
+        }
     }
 
 }

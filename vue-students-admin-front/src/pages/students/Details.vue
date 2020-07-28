@@ -121,7 +121,7 @@ export default {
                     this.enrollments = response.data.data    
                     this.enrollments.forEach(element => {
                         element.student_id = this.student.name
-                        console.log(element.course_id)
+                        //console.log(element.course_id)
                         element.course_id = this.findObjectByKey(this.courses , "course_id" , element.course_id).title
                     });
                 })
