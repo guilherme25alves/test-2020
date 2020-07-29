@@ -43,7 +43,7 @@
                                 <th>Ações</th>
                             </thead>
                             <tbody>
-                                <tr v-for="student of students" :key="student.student_id" > 
+                                <tr v-for="student of sortedStudents()" :key="student.student_id" > 
                                     <td>{{ student.student_id }}</td>
                                     <td>{{ student.name }}</td>
                                     <td>{{ student.email }}</td>
@@ -57,8 +57,18 @@
                             </tbody>
                         </table>
 
-                        <section>
-                            <router-link to="/students/store" class="btn btn-edit align-btn">Novo Aluno</router-link>
+                        <section>                            
+                            <div class="columns">
+                                <div class="column col-2">
+                                    <router-link to="/students/store" class="btn btn-edit align-btn">Novo Aluno</router-link>
+                                </div>
+                                <div class="column col-8 col-mr-auto">
+                                    <button class="btn-paginating btn-detail" @click="prevPage">
+                                        <i class="fas fa-arrow-left"></i> Previous</button> 
+                                    <button class="btn-paginating btn-detail" @click="nextPage">
+                                        Next <i class="fas fa-arrow-right"></i></button>
+                                </div>                                
+                            </div>
                         </section>
 
                 </div>                
@@ -80,6 +90,10 @@ export default {
             title: "Alunos",
             filterValue:"",
             isLoading:false,
+            pageSize:5,
+            currentPage:1,
+            currentSort:'student_id',
+            currentSortDir:'asc'
         }
     },
     mounted(){
@@ -88,15 +102,35 @@ export default {
 
     methods:{
         
+        sort:function(s) {
+            if(s === this.currentSort) {
+            this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+            }
+            this.currentSort = s;
+        },
+
+        sortedStudents() {
+            return this.students.filter((row, index) => {
+                let start = (this.currentPage-1)*this.pageSize;
+                let end = this.currentPage*this.pageSize;
+                if(index >= start && index < end) return true;
+            });
+        },
+
+        nextPage:function() {
+            if((this.currentPage*this.pageSize) < this.students.length) this.currentPage++;
+        },
+        prevPage:function() {
+            if(this.currentPage > 1) this.currentPage--;
+        },
+
         list(){
             if(this.filterValue !== ''){
-                this.filterValue =''
-                this.isLoading = true
+                this.filterValue =''                
             }  
             Students.listStudents().then(response => {
-                this.students = response.data.data
-                this.isLoading = false                
-            })                                              
+                this.students = response.data.data                                
+            })                    
         },
 
         toEdit(student_id){
@@ -107,8 +141,7 @@ export default {
             this.$router.push('/students/details/' + student_id)
         },
 
-        getStudentsByFilter(text){
-            this.isLoading = true
+        getStudentsByFilter(text){            
             Students.findByText(text)
             .then(response => {
                 this.students = response.data.data
@@ -118,8 +151,7 @@ export default {
                     icon: "error",
                 });
                 this.list()
-            })
-            this.isLoading = false
+            })            
         },
 
         getClassLoading(loadingValue, typeIcon){
@@ -256,6 +288,15 @@ export default {
     .title-h {
         color: #41b883;
         font-family: fantasy;
+    }
+         
+    .btn-paginating{
+        padding: 7px;
+        margin: 6px;
+        width: 120px;
+        text-align: center;
+        background: #FFF;
+        cursor: pointer;
     }
 
     @media(max-width: 880px){

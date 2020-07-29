@@ -43,7 +43,7 @@
                                 <th>Ações</th>
                             </thead>
                             <tbody>
-                                <tr v-for="course of courses" :key="course.course_id" > 
+                                <tr v-for="course of sortedCourses()" :key="course.course_id" > 
                                     <td>{{ course.course_id }}</td>
                                     <td>{{ course.title }}</td>
                                     <td>{{ course.description }}</td>                                    
@@ -56,9 +56,21 @@
                             </tbody>
                         </table>
 
-                        <section>
-                            <router-link to="/courses/store" class="btn btn-edit align-btn">Novo Curso</router-link>
+                        <section>                            
+                            <div class="columns">
+                                <div class="column col-2">
+                                    <router-link to="/courses/store" class="btn btn-edit align-btn">Novo Curso</router-link>
+                                </div>
+                                <div class="column col-8 col-mr-auto">
+                                    <button class="btn-paginating btn-detail" @click="prevPage">
+                                        <i class="fas fa-arrow-left"></i> Previous</button> 
+                                    <button class="btn-paginating btn-detail" @click="nextPage">
+                                        Next <i class="fas fa-arrow-right"></i></button>
+                                </div>                                
+                            </div>
                         </section>
+
+
 
                 </div>                
             </div>            
@@ -78,6 +90,10 @@ export default {
             courses: [],
             title: "Cursos",
             filterValue:"",
+            pageSize:5,
+            currentPage:1,
+            currentSort:'student_id',
+            currentSortDir:'asc'
         }
     },
     mounted(){
@@ -85,7 +101,29 @@ export default {
     },
 
     methods:{
-        
+
+        sort:function(s) {
+            if(s === this.currentSort) {
+            this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+            }
+            this.currentSort = s;
+        },
+
+        sortedCourses() {
+            return this.courses.filter((row, index) => {
+                let start = (this.currentPage-1)*this.pageSize;
+                let end = this.currentPage*this.pageSize;
+                if(index >= start && index < end) return true;
+            });
+        },
+
+        nextPage:function() {
+            if((this.currentPage*this.pageSize) < this.courses.length) this.currentPage++;
+        },
+        prevPage:function() {
+            if(this.currentPage > 1) this.currentPage--;
+        },
+
         list(){
             if(this.filterValue !== ''){
                 this.filterValue =''                
@@ -241,6 +279,15 @@ export default {
     .title-h {
         color: #41b883;
         font-family: fantasy;
+    }
+    
+    .btn-paginating{
+        padding: 7px;
+        margin: 6px;
+        width: 120px;
+        text-align: center;
+        background: #FFF;
+        cursor: pointer;
     }
 
     @media(max-width: 880px){

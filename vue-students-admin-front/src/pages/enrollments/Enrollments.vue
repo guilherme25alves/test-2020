@@ -19,7 +19,7 @@
                                 <th>Ações</th>
                             </thead>
                             <tbody>
-                                <tr v-for="enrollment of enrollments" :key="enrollment.enrollment_id" > 
+                                <tr v-for="enrollment of sortedEnrollments()" :key="enrollment.enrollment_id" > 
                                     <td>{{ enrollment.enrollment_id }}</td>
                                     <td>{{ enrollment.student_id }}</td>
                                     <td>{{ enrollment.course_id }}</td>
@@ -32,8 +32,18 @@
                             </tbody>
                         </table>
 
-                        <section>
-                            <router-link to="/enrollments/store" class="btn btn-edit align-btn">Nova Matrícula</router-link>
+                        <section>                            
+                            <div class="columns">
+                                <div class="column col-2">
+                                    <router-link to="/enrollments/store" class="btn btn-edit align-btn">Nova Matrícula</router-link>
+                                </div>
+                                <div class="column col-8 col-mr-auto">
+                                    <button class="btn-paginating btn-detail" @click="prevPage">
+                                        <i class="fas fa-arrow-left"></i> Previous</button> 
+                                    <button class="btn-paginating btn-detail" @click="nextPage">
+                                        Next <i class="fas fa-arrow-right"></i></button>
+                                </div>                                
+                            </div>
                         </section>
 
                 </div>                
@@ -56,7 +66,11 @@ export default {
             enrollments: [],    
             students: [],
             courses: [],        
-            title: "Matrículas"
+            title: "Matrículas",
+            pageSize:5,
+            currentPage:1,
+            currentSort:'enrollment_id',
+            currentSortDir:'asc'
         }
     },
     mounted(){
@@ -66,7 +80,29 @@ export default {
     },
 
     methods:{
-        
+
+        sort:function(s) {
+            if(s === this.currentSort) {
+            this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+            }
+            this.currentSort = s;
+        },
+
+        sortedEnrollments() {
+            return this.enrollments.filter((row, index) => {
+                let start = (this.currentPage-1)*this.pageSize;
+                let end = this.currentPage*this.pageSize;
+                if(index >= start && index < end) return true;
+            });
+        },
+
+        nextPage:function() {
+            if((this.currentPage*this.pageSize) < this.enrollments.length) this.currentPage++;
+        },
+        prevPage:function() {
+            if(this.currentPage > 1) this.currentPage--;
+        },
+
         list(){
             Enrollments.listEnrollments().then(response => {
                 this.enrollments = response.data.data                
@@ -172,7 +208,7 @@ export default {
     }
     .align-btn{
         width: 100%;
-        max-width: 120px;
+        max-width: 160px;
         float: left;
     }
 
@@ -215,6 +251,14 @@ export default {
         font-family: fantasy;
     }
 
+    .btn-paginating{
+        padding: 7px;
+        margin: 6px;
+        width: 120px;
+        text-align: center;
+        background: #FFF;
+        cursor: pointer;
+    }
     @media(max-width: 880px){
         .column{
             overflow-x: auto !important;
