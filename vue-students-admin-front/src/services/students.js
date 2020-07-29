@@ -39,5 +39,9 @@ export default{
 
     findByEmail:(email) => {
         return http.get('students/email/' + email)
+    },
+
+    findByText:(text) => {
+        return http.get('students/search-text/' + text)
     }
 }

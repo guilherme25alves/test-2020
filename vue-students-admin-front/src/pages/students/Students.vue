@@ -7,9 +7,33 @@
                     <h1 class="title-h">{{ title }}</h1>
                 </div>
             </div>
-
+            
             <div class="columns">
-                <div class="column col-10 col-mx-auto col-xs-12 col-sm-12 col-md-12">
+                <div class="column col-10 col-mx-auto col-xs-12 col-sm-12 col-md-12">                    
+                    <div id="searchDiv" class="col-3 col-xs-12 col-sm-12 col-md-12">
+                        <div class="input-group">
+                            <form @submit="getStudentsByFilter(filterValue)">                                
+                                <input 
+                                    required
+                                    id="searchValue" 
+                                    v-model="filterValue"
+                                    type="text" 
+                                    class="form-input" 
+                                    placeholder="Pesquise por nome ou e-mail...">                            
+                                <button                                     
+                                    id="searchBtn" type="submit" title="Pesquisar"
+                                    class="btn btn-detail input-group-btn">
+                                    <i v-bind:class="getClassLoading(isLoading, 'search')"></i>
+                                </button>
+                                <button 
+                                    id="clearBtn" type="button" v-on:click="list"
+                                    class="btn btn-edit input-group-btn" title="Limpar busca">
+                                    <i v-bind:class="getClassLoading(isLoading, 'clear')"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
                         <table class="table">
                             <thead>
                                 <th>ID</th>
@@ -53,7 +77,9 @@ export default {
     data(){
         return {
             students: [],
-            title: "Alunos"
+            title: "Alunos",
+            filterValue:"",
+            isLoading:false,
         }
     },
     mounted(){
@@ -63,9 +89,14 @@ export default {
     methods:{
         
         list(){
+            if(this.filterValue !== ''){
+                this.filterValue =''
+                this.isLoading = true
+            }  
             Students.listStudents().then(response => {
                 this.students = response.data.data
-            })
+                this.isLoading = false
+            })                                              
         },
 
         toEdit(student_id){
@@ -74,6 +105,30 @@ export default {
 
         toDetails(student_id){
             this.$router.push('/students/details/' + student_id)
+        },
+
+        getStudentsByFilter(text){
+            this.isLoading = true
+            Students.findByText(text)
+            .then(response => {
+                this.students = response.data.data
+            })
+            .catch(() =>{
+                this.$swal("Valores não encontrados! Tente novamente!", {
+                    icon: "error",
+                });
+                this.list()
+            })
+            this.isLoading = false
+        },
+
+        getClassLoading(loadingValue, typeIcon){
+            if(typeIcon === 'search'){
+                return (loadingValue) ? 'fa fa-spinner fa-pulse fa-fw' : 'fas fa-search'
+            }else{
+                return (loadingValue) ? 'fa fa-spinner fa-pulse fa-fw' : 'fas fa-times'
+            }
+            
         },
 
         deleteStudent(student_id){
@@ -112,7 +167,16 @@ export default {
 </script>
 
 <style>
-
+    form{
+        display:contents
+    }
+    #searchDiv{
+        float:right; 
+        padding-bottom:9px
+    }
+    #searchBtn, #clearBtn{
+        margin: 0 !important;
+    }
     .btn{
         margin: 5px;
     }

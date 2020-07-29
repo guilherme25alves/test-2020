@@ -10,6 +10,31 @@
 
             <div class="columns">
                 <div class="column col-10 col-mx-auto col-xs-12 col-sm-12 col-md-12">
+                        
+                    <div id="searchDiv" class="col-3 col-xs-12 col-sm-12 col-md-12">
+                        <div class="input-group">
+                            <form @submit="getCoursesByTitle(filterValue)">                                
+                                <input 
+                                    required
+                                    id="searchValue" 
+                                    v-model="filterValue"
+                                    type="text" 
+                                    class="form-input" 
+                                    placeholder="Pesquise por título...">                            
+                                <button                                     
+                                    id="searchBtn" type="submit" title="Pesquisar"
+                                    class="btn btn-detail input-group-btn">
+                                    <i class='fas fa-search'></i>
+                                </button>
+                                <button 
+                                    id="clearBtn" type="button" v-on:click="list"
+                                    class="btn btn-edit input-group-btn" title="Limpar busca">
+                                    <i class='fas fa-times'></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
                         <table class="table">
                             <thead>
                                 <th>ID</th>
@@ -51,7 +76,8 @@ export default {
     data(){
         return {
             courses: [],
-            title: "Cursos"
+            title: "Cursos",
+            filterValue:"",
         }
     },
     mounted(){
@@ -61,6 +87,9 @@ export default {
     methods:{
         
         list(){
+            if(this.filterValue !== ''){
+                this.filterValue =''                
+            }  
             Courses.listCourses().then(response => {
                 this.courses = response.data.data
             })
@@ -72,6 +101,19 @@ export default {
 
         toDetails(course_id){
             this.$router.push('/courses/details/' + course_id)
+        },
+
+        getCoursesByTitle(title){
+            Courses.findByTitle(title)
+            .then(response => {
+                this.courses = response.data.data
+            })
+            .catch(() =>{
+                this.$swal("Valores não encontrados! Tente novamente!", {
+                    icon: "error",
+                });
+                this.list()
+            })            
         },
 
         deleteCourse(course_id){
@@ -110,7 +152,16 @@ export default {
 </script>
 
 <style>
-
+    form{
+        display:contents
+    }
+    #searchDiv{
+        float:right; 
+        padding-bottom:9px
+    }
+    #searchBtn, #clearBtn{
+        margin: 0 !important;
+    }
     .btn{
         margin: 5px;
     }
