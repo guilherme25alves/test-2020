@@ -10,7 +10,7 @@
             
             <div class="columns">
                 <div class="column col-10 col-mx-auto col-xs-12 col-sm-12 col-md-12">                    
-                    <div id="searchDiv" class="col-3 col-xs-12 col-sm-12 col-md-12">
+                    <div id="searchDiv" class="col-4 col-xs-12 col-sm-12 col-md-12">
                         <div class="input-group">
                             <form @submit="getStudentsByFilter(filterValue)">                                
                                 <input 
@@ -95,7 +95,7 @@ export default {
             }  
             Students.listStudents().then(response => {
                 this.students = response.data.data
-                this.isLoading = false
+                this.isLoading = false                
             })                                              
         },
 
