@@ -21,6 +21,7 @@ Route::group([ 'prefix' => env('API_VERSION')], function () {
    
     Route::get('/students', 'StudentsController@get');
     Route::get('/students/{id}', 'StudentsController@getById');
+    Route::get('/students/search-text/{text}', 'StudentsController@getByTextField');
     Route::get('/students/name/{name}', 'StudentsController@getByName');
     Route::get('/students/enrollments/{id}', 'StudentsController@getEnrollmentsByStudent');
     Route::get('/students/email/{email}', 'StudentsController@getByEmail');

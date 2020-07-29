@@ -64,6 +64,32 @@ class StudentsController extends Controller
         }        
     }
 
+    public function getByTextField($textValue)
+    {
+        $message = VarsMessageHelper::$okMessage;
+        $httpCode = 200;
+
+        if(is_null($textValue)){
+            $message = VarsMessageHelper::$nullParameterMessage;
+            $httpCode = 400;
+            return response(['data'=> null, 'message' => $message], $httpCode);
+        }
+
+        $student = Students::where('name', 'like','%'.$textValue.'%')
+            ->orWhere('email', 'like','%'.$textValue.'%')
+            ->get();
+
+        if(count($student) > 0){
+            $message = VarsMessageHelper::$okMessage;
+            $httpCode = 200;            
+        }else{
+            $message = VarsMessageHelper::$notFoundMessage;
+            $httpCode = 404;
+        }
+
+        return response(['data' => new StudentsResource($student), 'message' => $message], $httpCode);
+    }
+
     public function getByName($name)
     {
         $message = VarsMessageHelper::$okMessage;
