@@ -36,10 +36,10 @@
 
                         <table class="table">
                             <thead>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>E-mail</th>
-                                <th>Data de nascimento</th>
+                                <th @click="sort('student_id')">#ID <i class="fas fa-sort"></i></th>
+                                <th @click="sort('name')">Nome <i class="fas fa-sort"></i> </th>
+                                <th @click="sort('email')">E-mail <i class="fas fa-sort"></i> </th>
+                                <th @click="sort('birthdate')">Data de nascimento <i class="fas fa-sort"></i> </th>
                                 <th>Ações</th>
                             </thead>
                             <tbody>
@@ -104,13 +104,24 @@ export default {
         
         sort:function(s) {
             if(s === this.currentSort) {
-            this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+                this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc'; 
+                this.$set(this.currentSortDir, this.currentSortDir)               
             }
             this.currentSort = s;
+            this.$set(this.currentSort, s)
+            
         },
 
         sortedStudents() {
-            return this.students.filter((row, index) => {
+            return this.students
+            .sort((a,b) => {
+                let modifier = 1;
+                if(this.currentSortDir === 'desc') modifier = -1;
+                if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+                if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                return 0;
+            })
+            .filter((row, index) => {
                 let start = (this.currentPage-1)*this.pageSize;
                 let end = this.currentPage*this.pageSize;
                 if(index >= start && index < end) return true;
@@ -283,7 +294,8 @@ export default {
         background: #649cb1;
         color: #fff;
         text-transform: uppercase;
-        font-size: 15px;        
+        font-size: 15px;       
+        cursor: pointer; 
     }
     .title-h {
         color: #41b883;

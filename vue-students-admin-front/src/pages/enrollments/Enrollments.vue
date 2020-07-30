@@ -12,10 +12,10 @@
                 <div class="column col-10 col-mx-auto col-xs-12 col-sm-12 col-md-12">
                         <table class="table">
                             <thead>
-                                <th>ID</th>
-                                <th>Aluno ID</th>
-                                <th>Curso ID</th>
-                                <th>Data matrícula</th>
+                                <th @click="sort('enrollment_id')" >#ID <i class="fas fa-sort"></i></th>
+                                <th @click="sort('student_id')" >Aluno <i class="fas fa-sort"></i></th>
+                                <th @click="sort('course_id')" >Curso <i class="fas fa-sort"></i></th>
+                                <th @click="sort('enrollment_date')" >Data matrícula <i class="fas fa-sort"></i></th>
                                 <th>Ações</th>
                             </thead>
                             <tbody>
@@ -89,11 +89,19 @@ export default {
         },
 
         sortedEnrollments() {
-            return this.enrollments.filter((row, index) => {
-                let start = (this.currentPage-1)*this.pageSize;
-                let end = this.currentPage*this.pageSize;
-                if(index >= start && index < end) return true;
-            });
+            return this.enrollments
+                .sort((a,b) => {
+                    let modifier = 1;
+                    if(this.currentSortDir === 'desc') modifier = -1;
+                    if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+                    if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                    return 0;
+                })
+                .filter((row, index) => {
+                    let start = (this.currentPage-1)*this.pageSize;
+                    let end = this.currentPage*this.pageSize;
+                    if(index >= start && index < end) return true;
+                });
         },
 
         nextPage:function() {

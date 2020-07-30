@@ -37,9 +37,9 @@
 
                         <table class="table">
                             <thead>
-                                <th>ID</th>
-                                <th>Título</th>
-                                <th>Descrição</th>                                
+                                <th @click="sort('course_id')">#ID <i class="fas fa-sort"></i></th>
+                                <th @click="sort('title')">Título <i class="fas fa-sort"></i></th>
+                                <th @click="sort('description')">Descrição <i class="fas fa-sort"></i></th>                                
                                 <th>Ações</th>
                             </thead>
                             <tbody>
@@ -92,7 +92,7 @@ export default {
             filterValue:"",
             pageSize:5,
             currentPage:1,
-            currentSort:'student_id',
+            currentSort:'course_id',
             currentSortDir:'asc'
         }
     },
@@ -110,7 +110,15 @@ export default {
         },
 
         sortedCourses() {
-            return this.courses.filter((row, index) => {
+            return this.courses
+            .sort((a,b) => {
+                let modifier = 1;
+                if(this.currentSortDir === 'desc') modifier = -1;
+                if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+                if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                return 0;
+            })
+            .filter((row, index) => {
                 let start = (this.currentPage-1)*this.pageSize;
                 let end = this.currentPage*this.pageSize;
                 if(index >= start && index < end) return true;

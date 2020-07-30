@@ -84,7 +84,7 @@ export default {
             enrollments: [],
             courses: [],
             title: "Detalhes Aluno : ",
-            isEmptyEnrollments: false            
+            isEmptyEnrollments: false           
         }
     },
 
@@ -117,11 +117,11 @@ export default {
 
         getEnrollments(studentId){
             Students.enrollmentsByStudent(studentId)
+
                 .then( response =>{
                     this.enrollments = response.data.data    
                     this.enrollments.forEach(element => {
-                        element.student_id = this.student.name
-                        //console.log(element.course_id)
+                        element.student_id = this.student.name                   
                         element.course_id = this.findObjectByKey(this.courses , "course_id" , element.course_id).title
                     });
                 })
