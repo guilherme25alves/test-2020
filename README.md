@@ -1,69 +1,102 @@
-### [VAGA - Programador PHP - SÃO PAULO/SP]
-# Teste prático - Programador(a) PHP Júnior – Laravel
+### Backend + Frontend 
+# Projeto Web  com Vue.js consumindo API Laravel
 
-**Desenvolver uma aplicação simples utilizando [Laravel 7](https://laravel.com/docs/7.x).**
-O objetivo desta avaliação é medir o nível de conhecimento do candidato nas áreas em que a vaga será exigida.
 
-### BEELABS - 2020
-## Contratação CLT
+### TECNOLOGIAS UTILIZADAS:
 
-### HABILIDADES EM:
-
-- PHP - OO
-- PHP - Procedural
+- PHP 
 - Laravel Framework
-- Experiência em construções de API's REST
-- Integração com API's e SDKS externas
+- Vue.js
+- Spectre.css
+- Axios
+- SweetAlert
 - Git
 - Composer
 
-### CONHECIMENTOS DESEJÁVEIS:
+## DESCRIÇÃO DOS PROJETOS
 
-- Javascript intermediário
-- Integração
-- Noções de estruturação e configuração de servidores
+### API LARAVEL
+API do laravel com intuíto de realizar operações CRUD para matrículas(Enrollments), alunos(Students) e cursos(Courses).
 
-### DIFERENCIAIS:
-- VueJS
-- NodeJS
+####Documentação da API
 
-### BENEFÍCIOS
+#####Localhost (Acessar após o projeto estiver sendo executado)
 
-- Vale transporte
-- Vale refeição
-- Convênio médico (50%)
-- Seguro de vida
-- Participação de lucros
+[Documentação API Laravel](http://localhost:8000/docs/#admin-students-api "Documentação API Laravel")
 
-### OBSERVAÇÕES GERAIS:
+Biblioteca de auxílio na documentação
 
-- De segunda a sexta. Carga horária de 08h com horário flexivel entre 9h e 18h
-- Possibilidade de 1 dia na semana como home office
+`composer require mpociot/laravel-apidoc-generator`
 
-### Remuneração
-- de R$ 1.900,00 à R$ 3.500,00 conforme experiência
+Comando para gerar documentação 
 
-### CONTATOS:
+`php artisan apidoc:generate`
 
-- E-mail: eduardo@appbee.online
-- Telefone: +55 11 99800-5901
+####Comandos para gerar estruturação do projeto
+##### STUDENTS
+- `php artisan make:migration create_students_table`
 
-### Local da empresa
-R. Paulo de faria, 146 - Sala 901/902 - Tucuruvi, São Paulo - SP
+- `php artisan make:model Students`
 
-# O teste
-O objetivo do teste é conhecer as habilidades em:
-- Programação PHP / Laravel.
-- Organização (código/arquivos).
-- Controle de versão.
-- Análise/Entendimento de requisitos.
-- Desenvolver o back-end como API e consumir no front-end.
-- Capricho (atenção com uri's, validações, modelagem, nomenclatura, padrão de código em inglês...).
+- `php artisan make:seeder StudentsTableSeeder`
 
-## Importante
-Tudo que for desenvolvido não será utilizado comercialmente e a única intenção é de avaliar o conhecimento atual do interessado.
+- `php artisan make:controller StudentsController`
 
-# Escopo
+- `php artisan make:resource StudentsResource`
+
+##### COURSES
+- `php artisan make:migration create_courses_table`
+
+- `php artisan make:model Courses`
+
+- `php artisan make:seeder CoursesTableSeeder`
+
+- `php artisan make:controller CoursesController`
+
+- `php artisan make:resource CoursesResource`
+
+- `php artisan make:migration create_enrollments_table`
+
+##### ENROLLMENTS
+- `php artisan make:model Enrollments`
+
+- `php artisan make:seeder EnrollmentsTableSeeder`
+
+- `php artisan make:controller EnrollmentsController`
+
+- `php artisan make:resource EnrollmentsResource `
+
+#### MIGRATIONS PARA GERAR A ESTRUTURA DO BANCO DE DADOS
+`php artisan migrate`
+#### SEEDER FACTORIE PARA OS DADOS NO BANCO
+`php artisan db:seed`
+
+
+### VUE.JS FRONTEND
+
+![Home Page](https://imgur.com/gallery/yxirTi3 "Home Page Vue.js")
+
+Projeto para web em Vue.js para consumo da API Laravel, composto de página Home e páginas para exibição, edição, cadastro para Estudantes, Cursos e Matrículas, com a opção de buscar por nome e-mail para Estudantes, e por título para Cursos, no caso desses 2 com tela para visualizar detalhes.
+
+Projeto construído com apoio do framework Spectre.css para ajustes de layout e dimensionamento, além de classes de estilo da biblioteca. Para interações com o usuário mais agradáveis foi utilizado o SweetAlerts para alertas mais amigáveis. O relacionamento entre projeto web e a API Laravel foi feito através do Axios, responsável pelo consumo e retorno da requisições feitas para API.
+
+## EXECUTANDO O PROJETO
+Após download ou clone do projeto,  haverá uma pasta para o projeto backend e outra pasta para o frontend:
+
+- laravel-students-admin-api
+
+- vue-students-admin-front
+
+Acessando o terminal dentro de cada pasta executar os comandos
+
+`php artisan serve` : executar projeto backend
+
+`yarn serve` : executar projeto frontend
+
+
+# TESTE
+
+## Escopo
 Deve-se criar uma aplicação em PHP para resolver o problema descrito abaixo, utilizando framework Laravel 7. Fique a vontade para explorar todo o seu conhecimento em automação de tarefas, CSS, Vue.JS e demais ferramentas.
 
 ### Qual é o teste ?
@@ -105,20 +138,3 @@ Criar um gerenciamento aonde seja possível Criar, Listar, Editar e Visualizar u
 
 ### Links uteis
 - [Laravel](https://laravel.com/docs/7.x)
-
-# Observações:
-- Não tenha pressa! O que será avaliado é a qualidade do código não a velocidade de desenvolvimento. Portanto, qualquer generator / scaffolding de CRUD, MVC, etc, torna-se desnecessário. 
-- Se não for possível terminar todas as funcionalidades, não tem problema.
-- Seu código-fonte não precisa ser bonito ou ter um UX excelente. Você pode optar por templates para o frontend, se assim desejar.
-- Não precisa ser complexo, com varias lib’s e etc. O legal é usar o necessário para ter um código de qualidade e de fácil evolução. 
-- Lembrando código de qualidade, você pode e deve fazer o que achar necessário para isso, mesmo que não esteja listado aqui. 
-
-### Como participar ?
-- Fazer um fork deste repositório
-- Programar para atender os requisitos
-- Deve ser utilizado o Composer para gerenciar as dependências da aplicação. 
-
-### Entrega
-- Enviar link do GIT para o WhatsApp https://wa.me/5511998005901
-
-# Boa sorte
