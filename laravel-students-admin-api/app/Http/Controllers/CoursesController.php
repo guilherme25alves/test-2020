@@ -8,6 +8,11 @@ use App\Http\Resources\EnrollmentsResource;
 use App\Courses;
 use App\Helpers\VarsMessageHelper;
 
+/**
+ * @group  Courses
+ *
+ * APIs for managing courses
+ */
 class CoursesController extends Controller
 {
     private function validation($request, $method)
@@ -31,6 +36,23 @@ class CoursesController extends Controller
         return $request->validate($rules);        
     }
 
+    /**
+     *  get()
+     * 
+     * 
+     *   Get list of all Courses created
+	 *
+	 *
+     * @response 200 {"data": [{
+     *  "course_id": 4,
+     *  "title": "Biology",
+     *  "description": "Lessons on the behavior of marine animals",
+     *  "created_at": "2020-07-25T00:05:20.000000Z",
+     *  "updated_at": "2020-07-25T00:05:20.000000Z"
+     * }]}
+     *
+     * 
+     */
     public function get()
     {
         $courses = Courses::all();
@@ -38,6 +60,30 @@ class CoursesController extends Controller
         return response(['data' => new CoursesResource($courses), 'message' => VarsMessageHelper::$okMessage], 200);
     }
 
+    /**
+     *  
+     *  getById($id)
+     * 
+     * 
+    *   Get specified Course by course_id idenitifier
+    * 
+    * @urlParam  course_id required The ID of course.. Example: 1
+    * 
+    *  @response 200 {"data": {
+     *  "course_id": 4,
+     *  "title": "Biology",
+     *  "description": "Lessons on the behavior of marine animals",
+     *  "created_at": "2020-07-25T00:05:20.000000Z",
+     *  "updated_at": "2020-07-25T00:05:20.000000Z"
+    * }}
+    * @response  404 {
+    *  "message": "Resource not found"
+    * }
+    * @response  400 {
+    *  "message": "Null parameter detected [course_id]"
+    * }
+    *
+     */
     public function getById($id)
     {
         $message = VarsMessageHelper::$okMessage;
@@ -62,6 +108,32 @@ class CoursesController extends Controller
         }
     }
 
+    /**
+     * 
+     *   getByTitle($title)
+     * 
+     * 
+    * 
+    *  Get specified Course by title field 
+    * 
+    * 
+    * @urlParam  title required The Title of course.. Example: "Biology"
+    * 
+    * @response 200  {"data": [{
+     *  "course_id": 4,
+     *  "title": "Biology",
+     *  "description": "Lessons on the behavior of marine animals",
+     *  "created_at": "2020-07-25T00:05:20.000000Z",
+     *  "updated_at": "2020-07-25T00:05:20.000000Z"
+    * }]}
+    * @response  404 {
+    *  "message": "Resource not found"
+    * }
+    * @response  400 {
+    *  "message": "Null parameter detected [title]"
+    * }
+    *
+     */    
     public function getByTitle($title)
     {
         $message = VarsMessageHelper::$okMessage;
@@ -86,6 +158,32 @@ class CoursesController extends Controller
         return response(['data' => new CoursesResource($course), 'message' => $message], $httpCode);
     }
 
+    
+    /**
+     *  getEnrollmentsByCourse($courseId)
+     * 
+     *  Get list of Enrollments for specified Course, identifier by ID course 
+     * 
+     * 
+     * @urlParam  course_id required The ID of course. Example: 9
+     * 
+     * 
+    * @response 200 {"data":{
+    *  "enrollment_id": 3,
+    *  "student_id": 31,
+    *  "course_id": 2,
+    *  "enrollment_date": "2020-07-25 00:05:20",
+    *  "created_at": "2020-07-25T00:05:20.000000Z",
+    *  "updated_at": "2020-07-25T00:05:20.000000Z"
+    * }}
+     * @response  404 {
+     *  "message":"Resource not found"
+     * }
+     * @response  400 {
+     *  "message": "Null parameter detected [course_id]"
+     * }
+     * 
+     */    
     public function getEnrollmentsByCourse($courseId)
     {
         $message = VarsMessageHelper::$badRequestMessage;
@@ -111,6 +209,32 @@ class CoursesController extends Controller
         return response(['data'=> null,'message' => $message], $httpCode);
     }
 
+
+    /**
+     * 
+     *  store(Request $request)
+     * 
+     * 
+     *  Register a new Course in database
+     * 
+     *
+     * @bodyParam  title string required The title of the course. Example: "Algorithm Classes"
+     * @bodyParam  description string The description of the course. Example: "Lessons to learn about POO"    
+     * 
+     * @response 201{
+     *  "message": "Created successfully"
+     * }
+     * @response 422{
+     *  "message": "The given data was invalid",
+     *  "errors" :{
+     *      "title" :[
+     *          "The title field is required."
+     *      ]
+     *  }
+     * }
+     * 
+     *  
+     */
     public function store(Request $request)
     {
         $data = $this->validation($request,'POST');
@@ -122,9 +246,30 @@ class CoursesController extends Controller
             'description' => $descriptionCheck
         ]);
 
-        return response(['data' => new CoursesResource($course), 'message' => VarsMessageHelper::$createdMessage], 200);
+        return response(['data' => new CoursesResource($course), 'message' => VarsMessageHelper::$createdMessage], 201);
     }
 
+    /**
+     *  update(Request $request, $id)
+     * 
+     * 
+     *  Update an existing Course
+     * 
+     *  Detail: In case the request is incomplete, the API assumes the old values ​​and only changes what is inserted again
+     * 
+     * 
+     * @urlParam   course_id required The ID of the course. Example: 8
+     * @bodyParam  title string required The title of the course. Example: "Algorithm Classes"
+     * @bodyParam  description string The description of the course. Example: "Lessons to learn about POO"   
+     * 
+     * @response 200{
+     *  "message": "Retrieved successfully"
+     * }
+     * @response 404{
+     *  "message": "Resource not found"
+     * }
+     *   
+     */
     public function update(Request $request, $id)
     {
         $message = VarsMessageHelper::$okMessage;
@@ -150,6 +295,24 @@ class CoursesController extends Controller
         return response(['data' => new CoursesResource($course), 'message' => $message], $httpCode); 
     }
 
+    /**
+     * 
+     *  delete($id)
+     * 
+     * 
+     *  Delete an existing Course
+     * 
+     *
+     * @urlParam course_id required The ID of the course. Example: 8
+     * 
+     * 
+     * @response 200{
+     *  "message": "Deleted successfully"
+     * }
+     * @response 404{
+     *  "message": "Resource not found"
+     * }
+     */
     public function delete($id)
     {
         $message = VarsMessageHelper::$deletedMessage;

@@ -1,0 +1,729 @@
+{
+    "variables": [],
+    "info": {
+        "name": "Laravel API",
+        "_postman_id": "8f6465fd-f1d8-4fda-a925-b65b1d5742b1",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Courses",
+            "description": "\nAPIs for managing courses",
+            "item": [
+                {
+                    "name": "get()",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/courses",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get list of all Courses created",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "getById($id)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/courses\/:course_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "course_id",
+                                    "key": "course_id",
+                                    "value": "1",
+                                    "description": "The ID of course.."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get specified Course by course_id idenitifier",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "getEnrollmentsByCourse($courseId)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/courses\/enrollments\/:course_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "course_id",
+                                    "key": "course_id",
+                                    "value": "9",
+                                    "description": "The ID of course."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get list of Enrollments for specified Course, identifier by ID course",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "getByTitle($title)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/courses\/title\/:title",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "title",
+                                    "key": "title",
+                                    "value": "%22Biology%22",
+                                    "description": "The Title of course.."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get specified Course by title field",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "store(Request $request)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/courses",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"\\\"Algorithm Classes\\\"\",\n    \"description\": \"\\\"Lessons to learn about POO\\\"\"\n}"
+                        },
+                        "description": "Register a new Course in database",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "update(Request $request, $id)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/courses\/:course_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "course_id",
+                                    "key": "course_id",
+                                    "value": "8",
+                                    "description": "The ID of the course."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"\\\"Algorithm Classes\\\"\",\n    \"description\": \"\\\"Lessons to learn about POO\\\"\"\n}"
+                        },
+                        "description": "Update an existing Course\n\n Detail: In case the request is incomplete, the API assumes the old values \u200b\u200band only changes what is inserted again",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "delete($id)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/courses\/:course_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "course_id",
+                                    "key": "course_id",
+                                    "value": "8",
+                                    "description": "The ID of the course."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Delete an existing Course",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Enrollments",
+            "description": "\nAPIs for managing enrollments",
+            "item": [
+                {
+                    "name": "get()",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/enrollments",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get list of all Enrollments created",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "getById($id)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/enrollments\/:enrollment_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "enrollment_id",
+                                    "key": "enrollment_id",
+                                    "value": "1",
+                                    "description": "The ID of enrollment.."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get specified Enrollment by enrollment_id idenitifier",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "store(Request $request)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/enrollments",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"student_id\": 20,\n    \"course_id\": 5\n}"
+                        },
+                        "description": "Register a new Enrollment in database",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "update(Request $request, $id)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/enrollments\/:enrollment_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "enrollment_id",
+                                    "key": "enrollment_id",
+                                    "value": "8",
+                                    "description": "The ID of the enrollment."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"student_id\": 20,\n    \"course_id\": 5\n}"
+                        },
+                        "description": "Update an existing Enrollment\n\n Detail: In case the request is incomplete, the API assumes the old values \u200b\u200band only changes what is inserted again",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "delete($id)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/enrollments\/:enrollment_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "enrollment_id",
+                                    "key": "enrollment_id",
+                                    "value": "8",
+                                    "description": "The ID of the enrollment."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Delete an existing Enrollment",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Students",
+            "description": "\nAPIs for managing students",
+            "item": [
+                {
+                    "name": "get()",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/students",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get list of all Students created",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "getById($id)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/students\/:student_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "student_id",
+                                    "key": "student_id",
+                                    "value": "1",
+                                    "description": "The ID of student."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get specified Student by student_id idenitifier",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "getByTextField($textValue)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/students\/search-text\/:text",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get list of Students by text sent to search for email or name",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "getByName($name)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/students\/name\/:name",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "name",
+                                    "key": "name",
+                                    "value": "%22Dr.+or+Kendra+Carroll%22",
+                                    "description": "The Name or part of name of Students.."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get Students by part of name searched",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "getEnrollmentsByStudent($studentId)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/students\/enrollments\/:student_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "student_id",
+                                    "key": "student_id",
+                                    "value": "9",
+                                    "description": "The ID of Student."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get list of Enrollments for specified Student, identifier by ID student",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "getByEmail($email)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/students\/email\/:email",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "email",
+                                    "key": "email",
+                                    "value": "%22kris45%40example.org%22",
+                                    "description": "The complete Email of Student.."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get specified Student by email field",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "store(Request $request)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/students",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"\\\"Abigail\\\"\",\n    \"email\": \"abigale61@example.net\\\"\",\n    \"birthdate\": \"1978-04-22\\\"\"\n}"
+                        },
+                        "description": "Register a new Student in database",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "update(Request $request, $id)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/students\/:student_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "student_id",
+                                    "key": "student_id",
+                                    "value": "8",
+                                    "description": "The ID of the student."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"\\\"Abigail\\\"\",\n    \"email\": \"abigale61@example.net\\\"\",\n    \"birthdate\": \"1978-04-22\\\"\"\n}"
+                        },
+                        "description": "Update an existing Student\n Detail: In case the request is incomplete, the API assumes the old values \u200b\u200band only changes what is inserted again",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "delete($id)",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/students\/:student_id",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "student_id",
+                                    "key": "student_id",
+                                    "value": "8",
+                                    "description": "The ID of the student."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Delete an existing Student",
+                        "response": []
+                    }
+                }
+            ]
+        }
+    ]
+}

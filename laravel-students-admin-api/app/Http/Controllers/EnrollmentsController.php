@@ -8,6 +8,11 @@ use App\Enrollments;
 use App\Helpers\VarsMessageHelper;
 use Carbon\Carbon;
 
+/**
+ * @group  Enrollments
+ *
+ * APIs for managing enrollments
+ */
 class EnrollmentsController extends Controller
 {
     private function validation($request, $method)
@@ -33,6 +38,24 @@ class EnrollmentsController extends Controller
         return $request->validate($rules); 
     }
 
+    /**
+     * 
+     *  get()
+     * 
+     *   Get list of all Enrollments created
+	 *
+	 *
+     * @response 200 {"data": [{
+     * "enrollment_id": 3,
+     * "student_id": 31,
+     * "course_id": 2,
+     * "enrollment_date": "2020-07-25 00:05:20",
+     * "created_at": "2020-07-25T00:05:20.000000Z",
+     * "updated_at": "2020-07-25T00:05:20.000000Z"
+     *}]}
+     *
+     * 
+     */ 
     public function get()
     {
         $enrollments = Enrollments::all();
@@ -40,6 +63,27 @@ class EnrollmentsController extends Controller
         return response(['data' => new EnrollmentsResource($enrollments), 'message' => VarsMessageHelper::$okMessage], 200);
     }
 
+    /**
+     *  getById($id)
+     * 
+     * 
+     *   Get specified Enrollment by enrollment_id idenitifier
+     * 
+     *
+     * @urlParam  enrollment_id required The ID of enrollment.. Example: 1
+     *
+     * 
+     * @response 200 {"data": {
+     * "enrollment_id": 3,
+     * "student_id": 31,
+     * "course_id": 2,
+     * "enrollment_date": "2020-07-25 00:05:20",
+     * "created_at": "2020-07-25T00:05:20.000000Z",
+     * "updated_at": "2020-07-25T00:05:20.000000Z"
+     *}}
+     *
+     * 
+     */ 
     public function getById($id)
     {
         $message = VarsMessageHelper::$okMessage;
@@ -64,6 +108,34 @@ class EnrollmentsController extends Controller
         }
     }
 
+
+
+
+    /**
+     *  store(Request $request)
+     * 
+     *  Register a new Enrollment in database
+     * 
+     * 
+     * @bodyParam  student_id int required The student identifier. Example: 20
+     * @bodyParam  course_id int required The course identifier. Example: 5
+     * 
+     * @response 201{
+     *  "message": "Created successfully"
+     * }
+     * @response 302{
+     *  "message" : "This course and student information already exists in an existing enrollment!"
+     * }
+     * @response 422{
+     *  "message": "The given data was invalid",
+     *  "errors" :{
+     *      "student" :[
+     *          "The student field is required."
+     *      ]
+     *  }
+     * }
+     *   
+     */
     public function store(Request $request)
     {        
         $data = $this->validation($request,'POST');
@@ -82,9 +154,32 @@ class EnrollmentsController extends Controller
             'enrollment_date' => $enrollmentDateCheck
         ]);
 
-        return response(['data' => new EnrollmentsResource($enrollment), 'message' => VarsMessageHelper::$createdMessage], 200);
+        return response(['data' => new EnrollmentsResource($enrollment), 'message' => VarsMessageHelper::$createdMessage], 201);
     }
 
+    /**
+     *  update(Request $request, $id)
+     * 
+     *  Update an existing Enrollment
+     * 
+     *  Detail: In case the request is incomplete, the API assumes the old values ​​and only changes what is inserted again
+     * 
+     * 
+     * @urlParam   enrollment_id required The ID of the enrollment. Example: 8
+     * @bodyParam  student_id int required The student identifier. Example: 20
+     * @bodyParam  course_id int required The course identifier. Example: 5 
+     * 
+     * @response 200{
+     *  "message": "Retrieved successfully"
+     * }
+     * @response 302{
+     *  "message" : "This course and student information already exists in an existing enrollment!"
+     * }
+     * @response 404{
+     *  "message": "Resource not found"
+     * }
+     *   
+     */
     public function update(Request $request, $id)
     {
         $message = VarsMessageHelper::$okMessage;
@@ -116,6 +211,23 @@ class EnrollmentsController extends Controller
         return response(['data' => new EnrollmentsResource($enrollment), 'message' => $message], $httpCode); 
     }
 
+    /**
+     *  delete($id)
+     * 
+     * 
+     *  Delete an existing Enrollment
+     * 
+     *
+     * @urlParam enrollment_id required The ID of the enrollment. Example: 8
+     * 
+     * 
+     * @response 200{
+     *  "message": "Deleted successfully"
+     * }
+     * @response 404{
+     *  "message": "Resource not found"
+     * }
+     */    
     public function delete($id)
     {
         $message = VarsMessageHelper::$deletedMessage;
