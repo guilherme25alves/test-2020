@@ -18,9 +18,9 @@
 ### API LARAVEL
 API do laravel com intuíto de realizar operações CRUD para matrículas(Enrollments), alunos(Students) e cursos(Courses).
 
-####Documentação da API
+#### Documentação da API
 
-#####Localhost (Acessar após o projeto estiver sendo executado)
+##### Localhost (Acessar após o projeto estiver sendo executado)
 
 [Documentação API Laravel](http://localhost:8000/docs/#admin-students-api "Documentação API Laravel")
 
@@ -32,7 +32,7 @@ Comando para gerar documentação
 
 `php artisan apidoc:generate`
 
-####Comandos para gerar estruturação do projeto
+#### Comandos para gerar estruturação do projeto
 ##### STUDENTS
 - `php artisan make:migration create_students_table`
 
@@ -74,7 +74,7 @@ Comando para gerar documentação
 
 ### VUE.JS FRONTEND
 
-![Home Page](https://imgur.com/gallery/yxirTi3 "Home Page Vue.js")
+![Home Page Vue.js](https://github.com/guilherme25alves/test-2020/vue-students-admin-front/src/assets/home_page.png)
 
 Projeto para web em Vue.js para consumo da API Laravel, composto de página Home e páginas para exibição, edição, cadastro para Estudantes, Cursos e Matrículas, com a opção de buscar por nome e-mail para Estudantes, e por título para Cursos, no caso desses 2 com tela para visualizar detalhes.
 
