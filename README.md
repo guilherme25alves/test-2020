@@ -24,7 +24,7 @@ utilizando o SGBD MySql Server
 
 ##### Localhost (Acessar após o projeto estiver sendo executado)
 
-[Documentação API Laravel](http://localhost:8000/docs/#admin-students-api "Documentação API Laravel")
+[Documentação API Laravel](http://localhost:8000/docs/#admin-students-api "Documentação API Laravel")  ou  `http://localhost:8000/docs/#admin-students-api`
 
 Biblioteca de auxílio na documentação
 
