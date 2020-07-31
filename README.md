@@ -12,11 +12,13 @@
 - SweetAlert
 - Git
 - Composer
+- MySql
 
 ## DESCRIÇÃO DOS PROJETOS
 
 ### API LARAVEL
-API do laravel com intuíto de realizar operações CRUD para matrículas(Enrollments), alunos(Students) e cursos(Courses).
+API do laravel com intuíto de realizar operações CRUD para matrículas(Enrollments), alunos(Students) e cursos(Courses). As interações foram feitas através de um banco de dados localhost
+utilizando o SGBD MySql Server
 
 #### Documentação da API
 
