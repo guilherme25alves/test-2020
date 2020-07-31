@@ -43,7 +43,9 @@ class StudentsController extends Controller
      *  get()
      * 
     *   Get list of all Students created
-	*
+    *
+    * @apiResourceCollection  App\Http\Resources\StudentsResource
+    * @apiResourceModel  App\Students
 	*
     * @response 200 {"data": [{
     *  "student_id": 1,
@@ -76,6 +78,9 @@ class StudentsController extends Controller
      * 
      * 
     *   Get specified Student by student_id idenitifier
+    *
+    * @apiResourceCollection  App\Http\Resources\StudentsResource
+    * @apiResourceModel  App\Students
     * 
     * @urlParam student_id required The ID of student. Example: 1
     * 
@@ -124,7 +129,10 @@ class StudentsController extends Controller
      *  getByTextField($textValue)
      * 
     *   Get list of Students by text sent to search for email or name
-    * 
+    *
+    * @apiResourceCollection  App\Http\Resources\StudentsResource
+    * @apiResourceModel  App\Students
+    *
     * @urlParam  textfield required The part of field searched (name or e-mail).. Example: "Ale"
     * 
     *   @response 200 {"data":  {
@@ -176,7 +184,9 @@ class StudentsController extends Controller
      * 
     * 
     *  Get Students by part of name searched
-    * 
+    *
+    * @apiResourceCollection  App\Http\Resources\StudentsResource
+    * @apiResourceModel  App\Students
     * 
     * @urlParam  name required The Name or part of name of Students.. Example: "Dr. or Kendra Carroll"
     * 
@@ -228,7 +238,9 @@ class StudentsController extends Controller
      * 
     *
     *  Get specified Student by email field 
-    * 
+    *
+    * @apiResourceCollection  App\Http\Resources\StudentsResource
+    * @apiResourceModel  App\Students
     * 
     * @urlParam  email required The complete Email of Student.. Example: "kris45@example.org"
     * 
@@ -277,6 +289,8 @@ class StudentsController extends Controller
      * 
      *  getEnrollmentsByStudent($studentId)
      * 
+     * @apiResourceCollection  App\Http\Resources\EnrollmentsResource
+     * @apiResourceModel  App\Enrollments
      * 
      *  Get list of Enrollments for specified Student, identifier by ID student 
      * 

@@ -43,6 +43,9 @@ class CoursesController extends Controller
      *   Get list of all Courses created
 	 *
 	 *
+     * @apiResourceCollection  App\Http\Resources\CoursesResource
+     * @apiResourceModel  App\Courses
+     * 
      * @response 200 {"data": [{
      *  "course_id": 4,
      *  "title": "Biology",
@@ -67,6 +70,9 @@ class CoursesController extends Controller
      * 
     *   Get specified Course by course_id idenitifier
     * 
+    * @apiResourceCollection  App\Http\Resources\CoursesResource
+    * @apiResourceModel  App\Courses
+    *
     * @urlParam  course_id required The ID of course.. Example: 1
     * 
     *  @response 200 {"data": {
@@ -115,7 +121,10 @@ class CoursesController extends Controller
      * 
     * 
     *  Get specified Course by title field 
-    * 
+    *
+    *
+    * @apiResourceCollection  App\Http\Resources\CoursesResource
+    * @apiResourceModel  App\Courses
     * 
     * @urlParam  title required The Title of course.. Example: "Biology"
     * 
@@ -164,6 +173,8 @@ class CoursesController extends Controller
      * 
      *  Get list of Enrollments for specified Course, identifier by ID course 
      * 
+     * @apiResourceCollection  App\Http\Resources\CoursesResource
+     * @apiResourceModel  App\Courses
      * 
      * @urlParam  course_id required The ID of course. Example: 9
      * 

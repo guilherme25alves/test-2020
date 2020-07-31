@@ -44,6 +44,8 @@ class EnrollmentsController extends Controller
      * 
      *   Get list of all Enrollments created
 	 *
+     * @apiResourceCollection  App\Http\Resources\EnrollmentsResource
+     * @apiResourceModel  App\Enrollments
 	 *
      * @response 200 {"data": [{
      * "enrollment_id": 3,
@@ -69,6 +71,8 @@ class EnrollmentsController extends Controller
      * 
      *   Get specified Enrollment by enrollment_id idenitifier
      * 
+     * @apiResourceCollection  App\Http\Resources\EnrollmentsResource
+     * @apiResourceModel  App\Enrollments
      *
      * @urlParam  enrollment_id required The ID of enrollment.. Example: 1
      *
