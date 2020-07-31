@@ -74,7 +74,7 @@ Comando para gerar documentação
 
 ### VUE.JS FRONTEND
 
-![Home Page Vue.js](https://github.com/guilherme25alves/test-2020/vue-students-admin-front/src/assets/home_page.png)
+![Home Page Vue.js](https://github.com/guilherme25alves/test-2020/blob/master/vue-students-admin-front/src/assets/home_page.png?raw=true)
 
 Projeto para web em Vue.js para consumo da API Laravel, composto de página Home e páginas para exibição, edição, cadastro para Estudantes, Cursos e Matrículas, com a opção de buscar por nome e-mail para Estudantes, e por título para Cursos, no caso desses 2 com tela para visualizar detalhes.
 
