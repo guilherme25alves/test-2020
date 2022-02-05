@@ -90,6 +90,7 @@ export default {
 
         sortedEnrollments() {
             return this.enrollments
+                .slice()
                 .sort((a,b) => {
                     let modifier = 1;
                     if(this.currentSortDir === 'desc') modifier = -1;
